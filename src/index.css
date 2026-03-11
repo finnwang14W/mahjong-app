@@ -1,0 +1,56 @@
+/* ── Google Fonts ─────────────────────────────────────────── */
+@import url('https://fonts.googleapis.com/css2?family=Zhi+Mang+Xing&family=Ma+Shan+Zheng&family=UnifrakturMaguntia&display=swap');
+
+*, *::before, *::after { box-sizing: border-box; }
+
+:root {
+  --ink:        #28211a;
+  --ink-mid:    #5c4e3e;
+  --ink-light:  #9a8878;
+  --parchment:  #f4ede1;
+  --ivory:      #fdf8ef;
+  --ivory-dark: #f0e8d5;
+  --tile-edge1: #c8b484;
+  --tile-edge2: #b09868;
+  --wan:    #8b3232;
+  --tong:   #2a4870;
+  --tiao:   #265430;
+  --wind:   #3a3862;
+  --dragon: #7a5c18;
+  --gold:   #b8860b;
+  --red:    #c0392b;
+}
+
+html { font-size: 15px; }
+
+body {
+  margin: 0;
+  background: #ebe3d8;
+  color: var(--ink);
+  font-family: 'PingFang SC', 'Hiragino Sans GB', 'Noto Sans SC', system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+#root { max-width: 480px; margin: 0 auto; }
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+  border: none;
+  outline: none;
+}
+
+/* ── 书法字体（按语言切换）─────────────────────────────────── */
+[data-lang="zh"] .calli {
+  font-family: 'Zhi Mang Xing', 'Ma Shan Zheng', cursive;
+  font-weight: 900;
+}
+[data-lang="en"] .calli,
+[data-lang="de"] .calli {
+  font-family: 'UnifrakturMaguntia', cursive;
+  font-weight: 400;
+  font-size: 1.3em;
+  letter-spacing: 0.5px;
+}

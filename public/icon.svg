@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <!-- Tile background -->
+  <rect width="512" height="512" rx="72" fill="#f5ede0"/>
+  <!-- Tile border / depth -->
+  <rect x="18" y="18" width="476" height="476" rx="60" fill="none" stroke="#c9a96e" stroke-width="10"/>
+  <rect x="30" y="30" width="452" height="452" rx="52" fill="#fdf8ef"/>
+  <!-- Subtle inner shadow top/left -->
+  <rect x="30" y="30" width="452" height="452" rx="52" fill="url(#inset)"/>
+  <!-- Green 發 character -->
+  <text
+    x="256"
+    y="336"
+    font-family="'Noto Serif SC', 'Source Han Serif CN', 'STKaiti', 'KaiTi', serif"
+    font-size="280"
+    font-weight="700"
+    text-anchor="middle"
+    fill="#1a7a3c"
+    letter-spacing="0"
+  >發</text>
+  <!-- Defs for subtle inset gradient -->
+  <defs>
+    <linearGradient id="inset" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#000" stop-opacity="0.04"/>
+      <stop offset="40%" stop-color="#000" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+</svg>

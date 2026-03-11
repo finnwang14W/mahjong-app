@@ -1,0 +1,16 @@
+node_modules/
+.next/
+dist/
+build/
+.git/
+*.jpg
+*.jpeg
+*.png
+*.gif
+*.mp3
+*.wav
+*.mp4
+*.svg
+*.ico
+.env
+.env.local

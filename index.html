@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" href="/favicon.ico" sizes="64x64" />
+    <link rel="icon" href="/icon.svg" sizes="any" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon-180x180.png" />
+    <meta name="theme-color" content="#28211a" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>麻将算番神器</title>
+    <!-- 根据系统语言动态选择 PWA manifest，确保安装时显示本地化名称 -->
+    <script>
+      (function () {
+        var s = (localStorage.getItem('mj_lang') || navigator.language || '').toLowerCase();
+        var l = s.startsWith('zh') ? 'zh' : s.startsWith('de') ? 'de' : 'en';
+        document.write('<link rel="manifest" href="/manifest.' + l + '.webmanifest">');
+      })();
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>
