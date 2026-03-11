@@ -3579,3 +3579,422 @@
   color: var(--ink);
   line-height: 1.5;
 }
+
+/* ═══════════════════════════════════════════════════════════
+   双模式计分板
+═══════════════════════════════════════════════════════════ */
+
+/* ── Mode Toggle ── */
+.mode-toggle-card {
+  padding: 10px !important;
+}
+
+.mode-toggle {
+  display: flex;
+  gap: 8px;
+}
+
+.mode-tab {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  background: rgba(0,0,0,0.04);
+  border: 2px solid transparent;
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.18s;
+}
+
+.mode-tab:active { transform: scale(0.97); }
+
+.mode-tab-icon {
+  font-size: 22px;
+  flex-shrink: 0;
+}
+
+.mode-tab-text {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.mode-tab-label {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.mode-tab-sub {
+  font-size: 10px;
+  color: var(--ink-mid);
+}
+
+.mode-tab-active {
+  background: #e8f4ec;
+  border-color: #27ae60;
+}
+
+.mode-tab-active .mode-tab-label {
+  color: #1a6e3a;
+}
+
+.mode-tab-pro-active {
+  background: #f0ebfa;
+  border-color: #7c3aed;
+}
+
+.mode-tab-pro-active .mode-tab-label {
+  color: #4c1d95;
+}
+
+/* ── Pro Status Card ── */
+.pro-status-card {
+  padding: 12px 14px !important;
+}
+
+.pro-status-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.pro-status-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.pro-round-wind-badge {
+  display: inline-block;
+  padding: 2px 9px;
+  border-radius: 20px;
+  background: #7c3aed;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+.pro-lz-badge {
+  display: inline-block;
+  padding: 2px 9px;
+  border-radius: 20px;
+  background: #dc2626;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.pro-dealer-label {
+  font-size: 12px;
+  color: var(--ink-mid);
+}
+
+.pro-reset-btn {
+  font-size: 12px;
+  color: var(--ink-mid);
+  background: rgba(0,0,0,0.05);
+  border-radius: 8px;
+  padding: 4px 10px;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.pro-reset-btn:active { opacity: 0.7; }
+
+/* ── Pro Seat Grid ── */
+.pro-seat-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 6px;
+}
+
+.pro-seat-cell {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  padding: 8px 4px;
+  border-radius: 10px;
+  background: rgba(0,0,0,0.04);
+  position: relative;
+}
+
+.pro-seat-dealer {
+  background: #f0ebfa;
+  border: 1.5px solid #7c3aed;
+}
+
+.pro-seat-wind {
+  font-size: 15px;
+  font-weight: 800;
+  color: var(--ink);
+  line-height: 1;
+}
+
+.pro-seat-name {
+  font-size: 11px;
+  color: var(--ink-mid);
+  max-width: 56px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.pro-seat-zhuang {
+  position: absolute;
+  top: -6px;
+  right: -4px;
+  font-size: 10px;
+  font-weight: 700;
+  background: #7c3aed;
+  color: #fff;
+  border-radius: 6px;
+  padding: 1px 5px;
+}
+
+/* ── Dealer Init Modal ── */
+.dealer-modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  background: rgba(0,0,0,0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+.dealer-modal {
+  background: var(--ivory);
+  border-radius: 18px;
+  padding: 24px 20px;
+  width: 100%;
+  max-width: 340px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+}
+
+.dealer-modal-title {
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--ink);
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.dealer-modal-desc {
+  font-size: 13px;
+  color: var(--ink-mid);
+  text-align: center;
+  line-height: 1.6;
+  margin: 0 0 18px;
+}
+
+.dealer-modal-btns {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.dealer-modal-player-btn {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  border-radius: 12px;
+  background: rgba(124,58,237,0.07);
+  border: 1.5px solid rgba(124,58,237,0.2);
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.15s;
+}
+
+.dealer-modal-player-btn:active {
+  background: rgba(124,58,237,0.15);
+  transform: scale(0.98);
+}
+
+.dealer-modal-wind {
+  font-size: 11px;
+  font-weight: 700;
+  color: #7c3aed;
+  background: rgba(124,58,237,0.12);
+  border-radius: 6px;
+  padding: 2px 8px;
+  white-space: nowrap;
+}
+
+.dealer-modal-player-name {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+/* ── Pro Leaderboard Wind/Dealer tags ── */
+.pro-seat-wind-tag {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 700;
+  color: #7c3aed;
+  background: rgba(124,58,237,0.1);
+  border-radius: 5px;
+  padding: 1px 6px;
+  margin-right: 5px;
+}
+
+.pro-dealer-tag {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 700;
+  background: #7c3aed;
+  color: #fff;
+  border-radius: 5px;
+  padding: 1px 5px;
+  margin-left: 4px;
+  vertical-align: middle;
+}
+
+/* ── Pro editor row ── */
+.pro-edit-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+
+.pro-edit-wind {
+  width: 20px;
+  font-size: 13px;
+  font-weight: 700;
+  color: #7c3aed;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+/* ── Social editor ── */
+.social-edit-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 10px 0 4px;
+}
+
+.social-edit-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.social-edit-num {
+  width: 18px;
+  font-size: 12px;
+  color: var(--ink-mid);
+  text-align: center;
+  flex-shrink: 0;
+}
+
+.social-remove-btn {
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  background: rgba(220,38,38,0.1);
+  color: #dc2626;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s;
+}
+
+.social-remove-btn:active { background: rgba(220,38,38,0.2); }
+
+.social-add-btn {
+  margin-top: 4px;
+  padding: 8px;
+  border-radius: 10px;
+  background: rgba(39,174,96,0.08);
+  border: 1.5px dashed rgba(39,174,96,0.4);
+  color: #1a6e3a;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  text-align: center;
+  transition: all 0.15s;
+}
+
+.social-add-btn:active { background: rgba(39,174,96,0.15); }
+
+.social-add-inline-btn {
+  width: 100%;
+  margin-top: 10px;
+  padding: 9px;
+  border-radius: 10px;
+  background: rgba(39,174,96,0.07);
+  border: 1.5px dashed rgba(39,174,96,0.35);
+  color: #1a6e3a;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  text-align: center;
+}
+
+.social-add-inline-btn:active { background: rgba(39,174,96,0.14); }
+
+/* ── History wind / 连庄 tags ── */
+.history-wind-tag {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 700;
+  color: #7c3aed;
+  background: rgba(124,58,237,0.1);
+  border-radius: 4px;
+  padding: 0 5px;
+  margin-right: 4px;
+  vertical-align: middle;
+}
+
+.history-lz-badge {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 700;
+  color: #dc2626;
+  background: rgba(220,38,38,0.1);
+  border-radius: 4px;
+  padding: 0 5px;
+  margin-left: 4px;
+  vertical-align: middle;
+}
+
+/* ── HandDetail pro state badge ── */
+.pro-round-state-badge {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.pro-badge-wind {
+  font-size: 11px;
+  font-weight: 700;
+  color: #7c3aed;
+  background: rgba(124,58,237,0.1);
+  border-radius: 6px;
+  padding: 2px 8px;
+}
+
+.pro-badge-lz {
+  font-size: 11px;
+  font-weight: 700;
+  color: #dc2626;
+  background: rgba(220,38,38,0.1);
+  border-radius: 6px;
+  padding: 2px 8px;
+}

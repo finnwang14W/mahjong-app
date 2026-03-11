@@ -118,7 +118,15 @@ export default function App() {
     setPcModal({ open: true, error: 'INVALID_API_KEY', checking: false, tab: 'geek' });
   }, [setUserApiKey]);
 
-  const { players, setPlayers, history, addRound, clearHistory } = useGameHistory();
+  const {
+    boardMode, setBoardMode,
+    players,
+    socialPlayers, setSocialPlayers,
+    proPlayers, setProPlayers,
+    setPlayers,
+    proGameState, initProGame, resetProGame,
+    history, addRound, clearHistory,
+  } = useGameHistory();
 
   const addTile = useCallback((tileOrTiles) => {
     const tiles = Array.isArray(tileOrTiles) ? tileOrTiles : [tileOrTiles];
@@ -398,8 +406,17 @@ export default function App() {
           </>
         ) : tab === 'record' ? (
           <Scoreboard
+            boardMode={boardMode}
+            setBoardMode={setBoardMode}
             players={players}
+            socialPlayers={socialPlayers}
+            setSocialPlayers={setSocialPlayers}
+            proPlayers={proPlayers}
+            setProPlayers={setProPlayers}
             setPlayers={setPlayers}
+            proGameState={proGameState}
+            initProGame={initProGame}
+            resetProGame={resetProGame}
             history={history}
             onClearHistory={clearHistory}
             t={t}
