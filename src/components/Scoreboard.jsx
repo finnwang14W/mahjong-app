@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { calcScores, getSeatWindIdx, WIND_NAMES } from '../hooks/useGameHistory';
+import { calcScores, getSeatWindIdx } from '../hooks/useGameHistory';
 import { TILE_UNICODE } from '../logic/tiles';
 
 function formatScore(n) {
@@ -20,9 +20,9 @@ function isMyLossFn(r, myPlayerIdx) {
   return r.selfDraw ? winnerIdx !== myPlayerIdx : r.loserIdx === myPlayerIdx;
 }
 
-function getPlayerName(players, idx) {
+function getPlayerName(players, idx, t) {
   if (idx == null) return '';
-  return players[idx] || `玩家${idx + 1}`;
+  return players[idx] || (t ? t.playerN(idx + 1) : `玩家${idx + 1}`);
 }
 
 // ── HandDetail ─────────────────────────────────────────────────────────────
@@ -31,7 +31,7 @@ function HandDetail({ r, t, players }) {
   const kongExtras = r.kongExtras || [];
   const fans = [...(r.fans || [])].sort((a, b) => b.fan - a.fan);
   const sortedHand = [...hand].sort((a, b) => a - b);
-  const loserName = r.loserIdx != null ? getPlayerName(players, r.loserIdx) : '';
+  const loserName = r.loserIdx != null ? getPlayerName(players, r.loserIdx, t) : '';
   const winMethod = r.selfDraw ? t.selfDrawWin : t.dealInWin(loserName);
   const mainFan = fans[0];
   let analysisText = '';
@@ -44,9 +44,9 @@ function HandDetail({ r, t, players }) {
     <div className="history-detail">
       {r.proState?.dealerIdx != null && (
         <div className="pro-round-state-badge">
-          <span className="pro-badge-wind">{WIND_NAMES[r.proState.roundWind]}圈</span>
+          <span className="pro-badge-wind">{t.roundWindLabel(t.windLabels[r.proState.roundWind])}</span>
           {r.proState.consecutiveWins > 0 && (
-            <span className="pro-badge-lz">连庄 +{r.proState.consecutiveWins}</span>
+            <span className="pro-badge-lz">{t.consecutiveWinsLabel(r.proState.consecutiveWins)}</span>
           )}
         </div>
       )}
@@ -294,21 +294,21 @@ function HistoryList({ history, t, players, myPlayerIdx }) {
     <div className="history-list">
       {history.map((r, idx) => {
         const winnerIdx = r.winnerIdx ?? r.playerIndex;
-        const winnerName = getPlayerName(players, winnerIdx);
+        const winnerName = getPlayerName(players, winnerIdx, t);
 
         let windTag = null;
         if (r.mode === 'pro' && r.proState?.dealerIdx != null) {
           const wi = getSeatWindIdx(winnerIdx, r.proState.dealerIdx);
-          windTag = <span className="history-wind-tag">{WIND_NAMES[wi]}</span>;
+          windTag = <span className="history-wind-tag">{t.windLabels[wi]}</span>;
         }
 
         const lzBadge = r.mode === 'pro' && r.proState?.consecutiveWins > 0
-          ? <span className="history-lz-badge">连庄+{r.proState.consecutiveWins}</span>
+          ? <span className="history-lz-badge">{t.consecutiveWinsLabel(r.proState.consecutiveWins)}</span>
           : null;
 
         const loserPart = r.selfDraw
           ? <span className="history-selfdraw">{t.selfDraw}</span>
-          : <span className="history-loser">← {getPlayerName(players, r.loserIdx)}</span>;
+          : <span className="history-loser">← {getPlayerName(players, r.loserIdx, t)}</span>;
 
         const isMyWin = winnerIdx === myPlayerIdx;
         const isMyLoss = isMyLossFn(r, myPlayerIdx);
@@ -340,19 +340,19 @@ function HistoryList({ history, t, players, myPlayerIdx }) {
 }
 
 // ── DealerInitModal ────────────────────────────────────────────────────────
-function DealerInitModal({ players, onConfirm }) {
+function DealerInitModal({ players, onConfirm, t }) {
   return (
     <div className="dealer-modal-overlay">
       <div className="dealer-modal">
-        <div className="dealer-modal-title calli">⚑ 指定起庄玩家</div>
+        <div className="dealer-modal-title calli">{t.dealerInitTitle}</div>
         <p className="dealer-modal-desc">
-          专业竞技模式需要设定初始东风位（庄家）。<br />
-          请选择本局的起始庄家：
+          {t.dealerInitDesc}<br />
+          {t.dealerInitPrompt}
         </p>
         <div className="dealer-modal-btns">
           {players.map((name, i) => (
             <button key={i} className="dealer-modal-player-btn" onClick={() => onConfirm(i)}>
-              <span className="dealer-modal-wind">东风位</span>
+              <span className="dealer-modal-wind">{t.eastSeatLabel}</span>
               <span className="dealer-modal-player-name">{name}</span>
             </button>
           ))}
@@ -363,35 +363,35 @@ function DealerInitModal({ players, onConfirm }) {
 }
 
 // ── Pro Status Bar ─────────────────────────────────────────────────────────
-function ProStatusBar({ proGameState, players, onReset }) {
+function ProStatusBar({ proGameState, players, onReset, t }) {
   const { dealerIdx, roundWind, consecutiveWins } = proGameState;
   if (dealerIdx == null) return null;
-  const dealerName = getPlayerName(players, dealerIdx);
+  const dealerName = getPlayerName(players, dealerIdx, t);
 
   // Build seat wind display in fixed order: 东南西北
   const seatOrder = [0, 1, 2, 3].map(windIdx => {
     const playerIdx = (dealerIdx + windIdx) % 4;
-    return { windIdx, playerIdx, name: getPlayerName(players, playerIdx) };
+    return { windIdx, playerIdx, name: getPlayerName(players, playerIdx, t) };
   });
 
   return (
     <div className="card pro-status-card">
       <div className="pro-status-header">
         <div className="pro-status-meta">
-          <span className="pro-round-wind-badge">{WIND_NAMES[roundWind]}圈</span>
+          <span className="pro-round-wind-badge">{t.roundWindLabel(t.windLabels[roundWind])}</span>
           {consecutiveWins > 0 && (
-            <span className="pro-lz-badge">连庄 +{consecutiveWins}</span>
+            <span className="pro-lz-badge">{t.consecutiveWinsLabel(consecutiveWins)}</span>
           )}
-          <span className="pro-dealer-label">庄：{dealerName}</span>
+          <span className="pro-dealer-label">{t.dealerPrefix}{dealerName}</span>
         </div>
-        <button className="pro-reset-btn" onClick={onReset}>↺ 重置庄家</button>
+        <button className="pro-reset-btn" onClick={onReset}>{t.resetDealer}</button>
       </div>
       <div className="pro-seat-grid">
         {seatOrder.map(({ windIdx, playerIdx, name }) => (
           <div key={windIdx} className={`pro-seat-cell ${playerIdx === dealerIdx ? 'pro-seat-dealer' : ''}`}>
-            <span className="pro-seat-wind">{WIND_NAMES[windIdx]}</span>
+            <span className="pro-seat-wind">{t.windLabels[windIdx]}</span>
             <span className="pro-seat-name">{name}</span>
-            {playerIdx === dealerIdx && <span className="pro-seat-zhuang">庄</span>}
+            {playerIdx === dealerIdx && <span className="pro-seat-zhuang">{t.dealerTag}</span>}
           </div>
         ))}
       </div>
@@ -446,7 +446,7 @@ function SocialLeaderboard({ players, setPlayers, history, t, myPlayerIdx, setMy
                 className="name-input"
                 value={name}
                 maxLength={10}
-                placeholder={`玩家${i + 1}`}
+                placeholder={t.playerN(i + 1)}
                 onChange={e => {
                   const next = [...draft];
                   next[i] = e.target.value;
@@ -464,9 +464,9 @@ function SocialLeaderboard({ players, setPlayers, history, t, myPlayerIdx, setMy
           {draft.length < 8 && (
             <button
               className="social-add-btn"
-              onClick={() => setDraft([...draft, `玩家${draft.length + 1}`])}
+              onClick={() => setDraft([...draft, t.playerN(draft.length + 1)])}
             >
-              + 添加玩家
+              {t.addPlayer}
             </button>
           )}
         </div>
@@ -495,9 +495,9 @@ function SocialLeaderboard({ players, setPlayers, history, t, myPlayerIdx, setMy
       {!editing && players.length < 8 && (
         <button
           className="social-add-inline-btn"
-          onClick={() => setPlayers([...players, `玩家${players.length + 1}`])}
+          onClick={() => setPlayers([...players, t.playerN(players.length + 1)])}
         >
-          + 添加玩家
+          {t.addPlayer}
         </button>
       )}
     </div>
@@ -542,13 +542,13 @@ function ProLeaderboard({ players, setPlayers, proGameState, history, t, myPlaye
           {draft.map((name, i) => (
             <div key={i} className="pro-edit-row">
               <span className="pro-edit-wind">
-                {WIND_NAMES[dealerIdx != null ? getSeatWindIdx(i, dealerIdx) : i]}
+                {t.windLabels[dealerIdx != null ? getSeatWindIdx(i, dealerIdx) : i]}
               </span>
               <input
                 className="name-input"
                 value={name}
                 maxLength={8}
-                placeholder={WIND_NAMES[i]}
+                placeholder={t.windLabels[i]}
                 onChange={e => {
                   const next = [...draft];
                   next[i] = e.target.value;
@@ -565,14 +565,14 @@ function ProLeaderboard({ players, setPlayers, proGameState, history, t, myPlaye
           const isTop = rank === 0 && s.totalScore > 0;
           const isMe = s.i === myPlayerIdx;
           const isDealer = s.i === dealerIdx;
-          const windName = WIND_NAMES[s.seatWindIdx];
+          const windName = t.windLabels[s.seatWindIdx];
           return (
             <div key={s.i} className={`leader-row ${isTop ? 'leader-top' : ''} ${isMe ? 'leader-me' : ''}`}>
               <span className="leader-rank">{isTop ? '👑' : `#${rank + 1}`}</span>
               <span className="leader-name">
                 <span className="pro-seat-wind-tag">{windName}</span>
                 {s.name}
-                {isDealer && <span className="pro-dealer-tag">庄</span>}
+                {isDealer && <span className="pro-dealer-tag">{t.dealerTag}</span>}
                 {isMe && <span className="leader-me-tag">{t.meTag}</span>}
               </span>
               <span className="leader-rounds">{s.wins}{t.winsLabel}</span>
@@ -637,8 +637,8 @@ export default function Scoreboard({
           >
             <span className="mode-tab-icon">🀄</span>
             <div className="mode-tab-text">
-              <span className="mode-tab-label">社交娱乐模式</span>
-              <span className="mode-tab-sub">自定义人数 · 随性玩</span>
+              <span className="mode-tab-label">{t.socialModeLabel}</span>
+              <span className="mode-tab-sub">{t.socialModeSub}</span>
             </div>
           </button>
           <button
@@ -647,8 +647,8 @@ export default function Scoreboard({
           >
             <span className="mode-tab-icon">🏆</span>
             <div className="mode-tab-text">
-              <span className="mode-tab-label">专业竞技模式</span>
-              <span className="mode-tab-sub">4人 · 自动风位流转</span>
+              <span className="mode-tab-label">{t.proModeLabel}</span>
+              <span className="mode-tab-sub">{t.proModeSub}</span>
             </div>
           </button>
         </div>
@@ -656,7 +656,7 @@ export default function Scoreboard({
 
       {/* ── Dealer Init Modal (Pro) ── */}
       {showDealerModal && boardMode === 'pro' && (
-        <DealerInitModal players={proPlayers} onConfirm={handleDealerConfirm} />
+        <DealerInitModal players={proPlayers} onConfirm={handleDealerConfirm} t={t} />
       )}
 
       {/* ── Pro Status Bar ── */}
@@ -665,6 +665,7 @@ export default function Scoreboard({
           proGameState={proGameState}
           players={proPlayers}
           onReset={handleResetPro}
+          t={t}
         />
       )}
 
