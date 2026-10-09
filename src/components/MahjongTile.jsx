@@ -45,9 +45,9 @@ const TILE_SPRITE = {
   43: { x: 566,  y: 140 },
   44: { x: 661,  y: 140 },
   // 箭
-  45: { x: 755,  y: 140 },
+  45: { x: 944,  y: 140 },
   46: { x: 850,  y: 140 },
-  47: { x: 944,  y: 140 },
+  47: { x: 755,  y: 140 },
 };
 
 export default function MahjongTile({ tile, scale = 0.5, onClick, className = '', style = {} }) {

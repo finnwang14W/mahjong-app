@@ -35,8 +35,8 @@ const C = {
       title: '认识你的武器', sub: '牌型大全',
       suits: [
         { name: '万', color: '#c04000', desc: '数字牌（1–9万），最常见', tiles: [11,12,13,14,15,16,17,18,19] },
-        { name: '条', color: '#2a6020', desc: '数字牌（1–9条）', tiles: [21,22,23,24,25,26,27,28,29] },
-        { name: '筒', color: '#1a4848', desc: '数字牌（1–9筒）', tiles: [31,32,33,34,35,36,37,38,39] },
+        { name: '条', color: '#2a6020', desc: '数字牌（1–9条）', tiles: [31,32,33,34,35,36,37,38,39] },
+        { name: '筒', color: '#1a4848', desc: '数字牌（1–9筒）', tiles: [21,22,23,24,25,26,27,28,29] },
         { name: '风', color: '#3c1e6e', desc: '字牌：东、南、西、北', tiles: [41,42,43,44] },
         { name: '箭', color: '#9a2800', desc: '字牌：中（红中）、发（发财）、白（白板）', tiles: [45,46,47] },
       ],
@@ -160,7 +160,7 @@ const C = {
         {
           name: '清一色',
           score: '16 番',
-          tiles: [21,22,23, 25,26,27, 21,22,23, 28,28,28, 24,24],
+          tiles: [31,32,33, 35,36,37, 31,32,33, 38,38,38, 34,34],
           desc: '全部 14 张手牌都是同一花色（图示全为条牌）。极难凑成，但一旦成功直接拿下 16 番！若再加上自摸，至少 17 番。',
         },
         {
@@ -180,8 +180,8 @@ const C = {
       title: 'Know Your Tiles', sub: 'The 5 Tile Types',
       suits: [
         { name: 'Man', color: '#c04000', desc: 'Numbers 1–9 (Characters)', tiles: [11,12,13,14,15,16,17,18,19] },
-        { name: 'Sou', color: '#2a6020', desc: 'Numbers 1–9 (Bamboo)', tiles: [21,22,23,24,25,26,27,28,29] },
-        { name: 'Pin', color: '#1a4848', desc: 'Numbers 1–9 (Circles)', tiles: [31,32,33,34,35,36,37,38,39] },
+        { name: 'Sou', color: '#2a6020', desc: 'Numbers 1–9 (Bamboo)', tiles: [31,32,33,34,35,36,37,38,39] },
+        { name: 'Pin', color: '#1a4848', desc: 'Numbers 1–9 (Circles)', tiles: [21,22,23,24,25,26,27,28,29] },
         { name: 'Winds', color: '#3c1e6e', desc: 'Honor tiles: East South West North', tiles: [41,42,43,44] },
         { name: 'Dragons', color: '#9a2800', desc: 'Honor tiles: Chun (Red), Hatsu (Green), Haku (White)', tiles: [45,46,47] },
       ],
@@ -305,7 +305,7 @@ const C = {
         {
           name: 'Full Flush',
           score: '16 fan',
-          tiles: [21,22,23, 25,26,27, 21,22,23, 28,28,28, 24,24],
+          tiles: [31,32,33, 35,36,37, 31,32,33, 38,38,38, 34,34],
           desc: 'All 14 tiles are the same suit (pictured: all Bamboo). Incredibly hard to build, but worth 16 fan instantly! Add self-draw on top: at least 17 fan.',
         },
         {
@@ -325,8 +325,8 @@ const C = {
       title: 'Deine Steine kennenlernen', sub: 'Die 5 Steintypen',
       suits: [
         { name: 'Zeichen', color: '#c04000', desc: 'Zahlen 1–9 (Wan)', tiles: [11,12,13,14,15,16,17,18,19] },
-        { name: 'Bambus', color: '#2a6020', desc: 'Zahlen 1–9 (Tiao)', tiles: [21,22,23,24,25,26,27,28,29] },
-        { name: 'Kreise', color: '#1a4848', desc: 'Zahlen 1–9 (Tong)', tiles: [31,32,33,34,35,36,37,38,39] },
+        { name: 'Bambus', color: '#2a6020', desc: 'Zahlen 1–9 (Tiao)', tiles: [31,32,33,34,35,36,37,38,39] },
+        { name: 'Kreise', color: '#1a4848', desc: 'Zahlen 1–9 (Tong)', tiles: [21,22,23,24,25,26,27,28,29] },
         { name: 'Winde', color: '#3c1e6e', desc: 'Ehrensteine: Ost, Süd, West, Nord', tiles: [41,42,43,44] },
         { name: 'Drachen', color: '#9a2800', desc: 'Ehrensteine: Rot (Chun), Grün (Hatsu), Weiß (Haku)', tiles: [45,46,47] },
       ],
@@ -450,7 +450,7 @@ const C = {
         {
           name: 'Einfarbig (Full Flush)',
           score: '16 Fan',
-          tiles: [21,22,23, 25,26,27, 21,22,23, 28,28,28, 24,24],
+          tiles: [31,32,33, 35,36,37, 31,32,33, 38,38,38, 34,34],
           desc: 'Alle 14 Steine gehören zu einer einzigen Farbe (hier: alles Bambus). Extrem schwer, aber sofort 16 Fan wert! Mit Selbstziehen kombiniert: mindestens 17 Fan.',
         },
         {
